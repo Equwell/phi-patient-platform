@@ -2,91 +2,279 @@
 @use 'components/pages';
 
 $register-form-max-width: 400px;
+$figma-bg: #D3D3D3;
+$figma-card-width: 327px;
+$figma-card-radius: 37px;
+$figma-card-padding: 24px;
+$figma-input-radius: 12px;
+$figma-input-border: #DCDCDC;
+$figma-button-radius: 12px;
+$figma-button-bg: #C2C2C2;
+$figma-button-color: #fff;
+$figma-header-font-size: 46px;
+$figma-header-font-family: 'Roboto', helvetica, arial, sans-serif;
+$figma-header-font-weight-bold: 700;
+$figma-header-font-weight-normal: 400;
+$figma-header-color: #000;
+$figma-card-shadow: 0 4px 24px rgb(0 0 0 / 6%);
 
 :host {
-  @include pages.read-page;
-
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100vw;
+  min-height: 100vh;
+  background: $figma-bg;
 
   .register-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100vw;
+    min-height: 100vh;
+    padding: 0;
+    background: transparent;
+
     &__top-section {
-      max-width: 400px;
-      padding: var(--spacing-r-6xl);
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      min-height: 220px;
+      padding-top: 0;
+      padding-bottom: 0;
+      margin-bottom: 0;
+      overflow: visible;
+      background: $figma-bg;
+    }
+
+    &__logo-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      max-width: 375px;
+      height: 220px;
       margin: 0 auto;
-      text-align: center;
-      background-color: var(--color-light-gray);
+    }
 
-      &__logo {
-        font-size: 2rem;
-        font-weight: bold;
-        color: var(--color-primary);
+    .register-page__illustration {
+      position: absolute;
+      top: -30px;
+      left: 45%;
+      z-index: 1;
+      display: block;
+      width: 220px;
+      height: 140px;
+      overflow: visible;
+      pointer-events: none;
+      opacity: 0.8;
+      filter: none;
+      transform: translateX(-60%);
 
-        span {
-          font-style: italic;
-        }
+      svg path {
+        stroke-dasharray: 1800;
+        stroke-dashoffset: 0;
+        transform-origin: 200px 130px;
       }
+    }
 
-      &__subtitle {
-        margin-top: var(--spacing-r-md);
-        font-size: 1.125rem;
-        color: var(--color-secondary);
-      }
+    .register-page__logo-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      font-family: $figma-header-font-family;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+    }
 
-      &__illustration {
-        max-width: 100%;
-        height: auto;
-        margin-bottom: var(--spacing-r-lg);
-      }
+    .register-page__logo-text-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
 
-      &__title {
-        font-size: var(--font-size-xxl);
-        font-weight: var(--font-weight-bold);
-        color: var(--color-primary);
-      }
+    .register-page__logo-ai {
+      display: block;
+      font-family: $figma-header-font-family;
+      font-size: $figma-header-font-size;
+      font-weight: $figma-header-font-weight-bold;
+      line-height: 0.8;
+      color: $figma-header-color;
+      text-align: left;
+      letter-spacing: -2px;
+    }
+
+    .register-page__logo-doctor {
+      display: block;
+      font-family: $figma-header-font-family;
+      font-size: $figma-header-font-size;
+      font-weight: $figma-header-font-weight-normal;
+      line-height: 0.8;
+      color: $figma-header-color;
+      text-align: left;
+      letter-spacing: -2px;
+    }
+
+    &__card {
+      position: relative;
+      top: 0;
+      z-index: 10;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 90vw;
+      max-width: $figma-card-width;
+      padding: $figma-card-padding;
+      margin: 0 auto;
+      margin-top: 0;
+      background: #fff;
+      border-radius: $figma-card-radius;
+      box-shadow: $figma-card-shadow;
     }
 
     &__form {
-      max-width: 400px;
-      padding: var(--spacing-r-4xl);
-      margin: 0 auto;
-      background: var(--color-white);
-      border-radius: var(--border-radius-lg);
-      box-shadow: var(--box-shadow-md);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: flex-start;
+      width: 100%;
+    }
 
-      .form-control__container {
-        margin-bottom: var(--spacing-r-lg);
-      }
+    &__form-title {
+      width: 100%;
+      margin-bottom: 0.5rem;
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: #111;
+      text-align: left;
+    }
 
-      .button--primary {
-        width: 100%;
-        padding: var(--spacing-r-md);
-        font-size: var(--font-size-md);
-        font-weight: var(--font-weight-bold);
-        color: var(--color-white);
-        cursor: pointer;
-        background-color: var(--color-primary);
-        border: none;
-        border-radius: var(--border-radius-md);
+    &__form-subtitle {
+      width: 100%;
+      margin-bottom: 1.5rem;
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      color: #939393;
+      text-align: left;
+    }
+
+    .form-control__container {
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+
+    sl-input.input--primary {
+      width: 100%;
+      max-width: $figma-card-width;
+      font-size: 14px;
+      background: #fff;
+      border-radius: $figma-input-radius;
+      box-shadow: none;
+
+      --sl-input-border-radius: #{$figma-input-radius};
+      --sl-input-font-size-medium: 14px;
+      --sl-input-padding-medium: 16px 16px;
+      --sl-input-background-color: #fff;
+      --sl-input-border-color: #DCDCDC;
+      --sl-input-color: #111;
+      --sl-input-placeholder-color: #939393;
+      --sl-input-focus-ring-color: #C2C2C2;
+    }
+
+    sl-icon[slot="prefix"] {
+      font-size: 24px;
+      color: #C2C2C2;
+    }
+
+    .register-page__button {
+      width: 100%;
+      max-width: $figma-card-width;
+      height: 56px;
+      margin-top: 0.5rem;
+      font-size: 16px;
+      font-weight: 400;
+      border-radius: $figma-button-radius;
+
+      --sl-button-border-radius: #{$figma-button-radius};
+      --sl-button-font-size-large: 16px;
+      --sl-button-padding-large: 0 0;
+      --sl-button-background: #C2C2C2;
+      --sl-button-color: #fff;
+      --sl-button-disabled-background: #C2C2C2;
+      --sl-button-disabled-color: #fff;
+    }
+
+    .register-page__button[disabled], .register-page__button[aria-disabled="true"] {
+      color: #fff;
+      background: #C2C2C2;
+      opacity: 1;
+    }
+
+    .register-page__footer {
+      width: 100%;
+      margin-top: 2.5rem;
+      font-size: 14px;
+      text-align: center;
+
+      .form-footer__link {
+        margin-left: 4px;
+        font-family: Helvetica, Arial, sans-serif;
+        font-weight: 400;
+        color: #939393;
+        text-decoration: none;
 
         &:hover {
-          background-color: var(--color-primary-dark);
-        }
-      }
-
-      &__footer {
-        margin-top: var(--spacing-r-lg);
-        font-size: 0.875rem;
-        text-align: center;
-
-        .register-page__login-link {
-          color: var(--color-link);
-          text-decoration: none;
-
-          &:hover {
-            text-decoration: underline;
-          }
+          color: #C2C2C2;
+          text-decoration: underline;
         }
       }
     }
+  }
+
+  @media (width <= 400px) {
+    .register-page__card {
+      box-sizing: border-box;
+      width: 95vw;
+      max-width: 95vw;
+      padding: 16px 4px 12px;
+      border-radius: 24px;
+    }
+
+    .register-page__top-section {
+      min-height: 180px;
+      padding-top: 32px;
+    }
+
+    .register-page__logo-wrapper {
+      max-width: 95vw;
+      height: 120px;
+    }
+
+    .register-page__logo-ai, .register-page__logo-doctor {
+      font-size: 40px;
+    }
+
+    .register-page__illustration {
+      width: 120px;
+      height: 80px;
+    }
+  }
+
+  html, body, :host {
+    overflow-x: hidden;
   }
 }

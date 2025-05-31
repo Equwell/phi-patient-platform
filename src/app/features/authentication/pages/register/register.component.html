@@ -1,84 +1,112 @@
 <main class="register-page">
-  <section class="register-page__top-section">
-    <div class="register-page__logo">
-      <h1 i18n="@@ai-doctor-logo">AI doctor</h1>
+  <div class="register-page__top-section">
+    <div class="register-page__logo-wrapper">
+      <div class="register-page__illustration" aria-hidden="true">
+        <svg width="320" height="180" viewBox="0 0 400 280" fill="none" xmlns="http://www.w3.org/2000/svg" class="register-page__atom-svg">
+          <g transform="translate(40,0)">
+            <path opacity="0.8" d="M212 213.5C27.4994 388.5 53.3914 -46.9966 64.0511 6.84312C111.665 247.33 133.371 2.36259 187.664 59.9187C241.958 117.475 326.91 306.575 187.115 247.33C47.3189 188.085 321.229 38.6843 241.5 31.5003C161.77 24.3162 -42.5935 104.486 11.7552 138.282C55.2342 165.32 187.664 213.5 231.841 125" stroke="#989696" stroke-width="4"/>
+          </g>
+        </svg>
+      </div>
+      <div class="register-page__logo-text">
+        <div class="register-page__logo-text-inner">
+          <span class="register-page__logo-ai" i18n>AI</span><br />
+          <span class="register-page__logo-doctor" i18n>doctor</span>
+        </div>
+      </div>
     </div>
-    <h2 class="register-page__subtitle" i18n="@@register-subtitle">Please Register Before Login</h2>
-  </section>
-  <form class="register-page__form" [formGroup]="registerForm" (ngSubmit)="sendForm()">
-    <div class="form-control__container">
-      <sl-input
-        class="input--primary"
-        placeholder="Fullname"
-        label="Full Name*"
-        size="medium"
-        i18n-label="@@fullname-label"
-        i18n-placeholder="@@fullname-placeholder"
-        appSlInputIconFocus
-        appTrim
-        required
-        ngDefaultControl
-        [formControl]="formControls.name"
+  </div>
+  <div class="register-page__card">
+    <form class="register-page__form" [formGroup]="registerForm" (ngSubmit)="sendForm()">
+      <h2 class="register-page__form-title" i18n>Register</h2>
+      <p class="register-page__form-subtitle" i18n>Please Register Before Login</p>
+      <div class="form-control__container">
+        <sl-input
+          class="input--primary"
+          placeholder="Fullname"
+          label="Full Name*"
+          size="medium"
+          i18n-label="@@fullname-label"
+          i18n-placeholder="@@fullname-placeholder"
+          appSlInputIconFocus
+          appTrim
+          required
+          ngDefaultControl
+          [formControl]="formControls.name"
+        >
+          <sl-icon name="person" slot="prefix" />
+        </sl-input>
+      </div>
+      <div class="form-control__container">
+        <sl-input
+          class="input--primary"
+          placeholder="Placeholder"
+          label="Email*"
+          size="medium"
+          i18n-label="@@email-label"
+          i18n-placeholder="@@email-placeholder"
+          appSlInputIconFocus
+          appLowercase
+          appTrim
+          required
+          ngDefaultControl
+          [formControl]="formControls.email"
+        >
+          <sl-icon name="mail" slot="prefix" />
+        </sl-input>
+      </div>
+      <div class="form-control__container">
+        <sl-input
+          type="password"
+          class="input--primary"
+          placeholder="Password"
+          password-toggle
+          label="Password*"
+          size="medium"
+          i18n-label="@@password-label"
+          i18n-placeholder="@@password-placeholder"
+          appSlInputIconFocus
+          required
+          ngDefaultControl
+          [formControl]="formControls.password"
+        >
+          <sl-icon name="lock" slot="prefix" />
+        </sl-input>
+      </div>
+      <div class="form-control__container">
+        <sl-input
+          class="input--primary"
+          placeholder="Input Phone Number"
+          label="Phone Input*"
+          size="medium"
+          i18n-label="@@phone-label"
+          i18n-placeholder="@@phone-placeholder"
+          appSlInputIconFocus
+          appTrim
+          required
+          ngDefaultControl
+          [formControl]="formControls.phone"
+        >
+          <sl-icon name="phone" slot="prefix" />
+        </sl-input>
+      </div>
+      <sl-button
+        class="button--primary register-page__button"
+        size="large"
+        type="submit"
+        [disabled]="formState().isLoading"
+        [attr.loading]="formState().isLoading || null"
       >
-        <sl-icon name="person" slot="prefix" />
-      </sl-input>
-    </div>
-    <div class="form-control__container">
-      <sl-input
-        class="input--primary"
-        placeholder="Placeholder"
-        label="Email*"
-        size="medium"
-        i18n-label="@@email-label"
-        i18n-placeholder="@@email-placeholder"
-        appSlInputIconFocus
-        appLowercase
-        appTrim
-        required
-        ngDefaultControl
-        [formControl]="formControls.email"
-      >
-        <sl-icon name="mail" slot="prefix" />
-      </sl-input>
-    </div>
-    <div class="form-control__container">
-      <sl-input
-        type="password"
-        class="input--primary"
-        placeholder="Password"
-        password-toggle
-        label="Password*"
-        size="medium"
-        i18n-label="@@password-label"
-        i18n-placeholder="@@password-placeholder"
-        appSlInputIconFocus
-        required
-        ngDefaultControl
-        [formControl]="formControls.password"
-      >
-        <sl-icon name="lock" slot="prefix" />
-      </sl-input>
-    </div>
-    <div class="form-control__container">
-      <sl-input
-        class="input--primary"
-        placeholder="Input Phone Number"
-        label="Phone Input*"
-        size="medium"
-        i18n-label="@@phone-label"
-        i18n-placeholder="@@phone-placeholder"
-        appSlInputIconFocus
-        appTrim
-        required
-        ngDefaultControl
-        [formControl]="formControls.phone"
-      >
-        <sl-icon name="phone" slot="prefix" />
-      </sl-input>
-    </div>
-    <button type="submit" class="button--primary" i18n="@@register-button">Register</button>
-    <p class="register-page__footer">
-      <span i18n="@@have-account">Have an account?</span> <a href="/login" class="register-page__login-link" i18n="@@login-link">Login Here</a>
-    </p>
-  </form>
+        <ng-container i18n>Register</ng-container>
+      </sl-button>
+      <div class="register-page__footer">
+        <p class="form-footer__paragraph">
+          <ng-container i18n>Have an account?</ng-container>
+          <a class="form-footer__link" [routerLink]="authUrls.logIn">
+            <ng-container i18n>Login Here</ng-container>
+          </a>
+        </p>
+      </div>
+    </form>
+  </div>
 </main>
