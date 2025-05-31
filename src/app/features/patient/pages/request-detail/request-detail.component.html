@@ -1,0 +1,17 @@
+<main class="request-detail__container">
+  <h1 i18n="@@requestDetailsTitle">Request Details</h1>
+  @if (request()) {
+    <ng-container>
+      <p><strong i18n="@@requestId">ID:</strong> {{ request()?.id }}</p>
+      <p><strong i18n="@@requestStatus">Status:</strong> {{ request()?.status }}</p>
+      <p><strong i18n="@@requestDescription">Description:</strong> {{ request()?.details }}</p>
+    </ng-container>
+  }
+  @else {
+    <ng-container *ngTemplateOutlet="loading" />
+  }
+  
+  <ng-template #loading>
+    <p i18n="@@loadingRequestDetails">Loading request details...</p>
+  </ng-template>
+</main>

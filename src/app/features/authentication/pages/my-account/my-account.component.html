@@ -53,14 +53,6 @@
         <sl-option class="sl-option--primary" i18n value="es-ES">Español (España)</sl-option>
       </sl-select>
     </div>
-    <div class="form-control__container favourite-pokemon__container">
-      <p i18n>Your favourite pokemon is:</p>
-      @if (pokemonImage()) {
-        <div class="favourite-pokemon__image-container">
-          <app-pokemon-image [image]="pokemonImage()" />
-        </div>
-      }
-    </div>
     <div class="form-control__container">
       <sl-button
         class="button--primary"
@@ -74,7 +66,7 @@
     </div>
   </form>
   <div class="decorative__container">
-    <img
+    <!-- <img
       class="decorative__image"
       ngSrc="angularexampleapp/assets/images/ash.png"
       alt="ash standing"
@@ -82,6 +74,6 @@
       height="562"
       width="261"
       priority
-    />
+    /> -->
   </div>
 </main>

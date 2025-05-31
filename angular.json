@@ -31,9 +31,11 @@
                 "glob": "**/*",
                 "input": "public",
                 "output": ""
-              }
+              },
+              "src/assets"
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/azure-blue.css",
               "normalize.css/normalize.css",
               "@shoelace-style/shoelace/dist/themes/light.css",
               "src/styles/global.scss"
@@ -48,13 +50,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kB",
-                  "maximumError": "4kB"
+                  "maximumWarning": "200kb",
+                  "maximumError": "400kb"
                 }
               ],
               "fileReplacements": [
@@ -120,9 +122,11 @@
                 "glob": "**/*",
                 "input": "public",
                 "output": ""
-              }
+              },
+              "src/assets"
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/azure-blue.css",
               "normalize.css/normalize.css",
               "@shoelace-style/shoelace/dist/themes/light.css",
               "src/styles/global.scss"

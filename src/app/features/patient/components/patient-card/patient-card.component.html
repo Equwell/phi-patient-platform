@@ -1,0 +1,64 @@
+@if (!loading()) {
+  <!-- <div class="patient-details"> -->
+    <mat-card class="info-card">
+      <mat-card-header>
+        <ng-container i18n ngProjectAs="heading">
+          <h2 class="card__heading">{{ patient()?.name | firstTitleCase }}</h2>
+        </ng-container>
+      </mat-card-header>
+      <mat-card-content>
+        <ng-container ngProjectAs="body">
+          <!-- <div class="pokemon__image-container"> -->
+            <!-- <img alt="patient" i18n-alt width="100" height="100" [src]="patientImage || ''" /> -->
+          <!-- </div> -->
+          <div class="patient-info">
+            <!-- <p>
+              <mat-icon i18n aria-hidden="false" aria-label="Email">email</mat-icon>
+              {{ patient()?.email }}
+            </p>
+            <p>
+              <mat-icon i18n aria-hidden="false" aria-label="Phone">phone</mat-icon>
+              {{ patient()?.phone }}
+            </p> -->
+            <!-- <p i18n>N.º: {{patient()?.order}}</p> -->
+            <p i18n>Height: {{patient()?.height}} cm</p>
+            <p i18n>Weight: {{patient()?.weight}} kg</p>
+          </div>
+        </ng-container>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="info-card">
+      <mat-card-content>
+          <mat-list >
+            @for (notification of notifications(); track notification.id) {
+                <mat-list-item [ngClass]="{'unread': !notification.isRead}">
+                    @if (!notification.isRead) {
+                        <mat-icon i18n class="notifications-icon" matListItemIcon>mark_email_unread</mat-icon>
+                    }
+                    @else {
+                        <mat-icon i18n class="notifications-icon" matListItemIcon>drafts</mat-icon>
+                    }
+                    
+                    <div matListItemTitle class="notifications-text">{{ notification.message }}</div>
+                  </mat-list-item>
+            }
+          </mat-list>        
+      </mat-card-content>
+    </mat-card>
+  <!-- </div> -->
+  
+} @else {
+  <app-card>
+    <ng-container ngProjectAs="heading">
+      <sl-skeleton effect="pulse" />
+    </ng-container>
+    <ng-container ngProjectAs="body">
+      <div class="pokemon__image-container">
+        <sl-skeleton effect="pulse" />
+      </div>
+      <p><sl-skeleton effect="pulse" /></p>
+      <p><sl-skeleton effect="pulse" /></p>
+      <p><sl-skeleton effect="pulse" /></p>
+    </ng-container>
+  </app-card>
+}

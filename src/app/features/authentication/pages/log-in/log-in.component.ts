@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { NgOptimizedImage } from '@angular/common';
+// Import { NgOptimizedImage } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { catchError, EMPTY, finalize } from 'rxjs';
 import { emailValidator } from '~core/validators/email.validator';
@@ -42,7 +42,7 @@ import '@shoelace-style/shoelace/dist/components/icon/icon.js';
     ReactiveFormsModule,
     RouterModule,
     SlInputIconFocusDirective,
-    NgOptimizedImage,
+    // NgOptimizedImage,
     LowercaseDirective,
     TrimDirective,
   ],
@@ -61,6 +61,8 @@ export class LogInComponent {
   readonly formControls = {
     email: this.logInForm.get('email') as FormControl<string>,
     password: this.logInForm.get('password') as FormControl<string>,
+    phone: this.logInForm.get('phone') as FormControl<string>,
+    rememberMe: this.logInForm.get('rememberMe') as FormControl<boolean>,
   };
   readonly formState = signal<LogInFormState>({
     isLoading: false,
@@ -103,6 +105,14 @@ export class LogInComponent {
       }),
       password: new FormControl<string>('', {
         validators: [Validators.required, Validators.minLength(6), passwordValidator()],
+        nonNullable: true,
+      }),
+      phone: new FormControl<string>('', {
+        validators: [Validators.required, Validators.minLength(6)],
+        nonNullable: true,
+      }),
+      rememberMe: new FormControl<boolean>(false, {
+        validators: [Validators.required],
         nonNullable: true,
       }),
     });

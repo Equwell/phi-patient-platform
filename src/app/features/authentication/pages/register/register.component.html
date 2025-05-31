@@ -1,27 +1,23 @@
-<main>
-  <h1 class="first-heading__title" i18n>¡Register and complete your Pokédex!</h1>
-  <form class="form__container register__form" [formGroup]="registerForm" (ngSubmit)="sendForm()">
-    <img
-      class="register-form__image"
-      alt="pokemon haunter"
-      i18n-alt
-      ngSrc="angularexampleapp/assets/images/haunter.png"
-      width="200"
-      height="200"
-    />
+<main class="register-page">
+  <section class="register-page__top-section">
+    <div class="register-page__logo">
+      <h1 i18n="@@ai-doctor-logo">AI doctor</h1>
+    </div>
+    <h2 class="register-page__subtitle" i18n="@@register-subtitle">Please Register Before Login</h2>
+  </section>
+  <form class="register-page__form" [formGroup]="registerForm" (ngSubmit)="sendForm()">
     <div class="form-control__container">
       <sl-input
         class="input--primary"
-        placeholder="Enter your name"
-        label="Name"
+        placeholder="Fullname"
+        label="Full Name*"
         size="medium"
-        i18n-label
-        i18n-placeholder
+        i18n-label="@@fullname-label"
+        i18n-placeholder="@@fullname-placeholder"
         appSlInputIconFocus
         appTrim
         required
         ngDefaultControl
-        [attr.help-text]="translations.fieldRequired"
         [formControl]="formControls.name"
       >
         <sl-icon name="person" slot="prefix" />
@@ -30,36 +26,34 @@
     <div class="form-control__container">
       <sl-input
         class="input--primary"
-        placeholder="Enter your email"
-        label="Email"
+        placeholder="Placeholder"
+        label="Email*"
         size="medium"
-        i18n-label
-        i18n-placeholder
+        i18n-label="@@email-label"
+        i18n-placeholder="@@email-placeholder"
         appSlInputIconFocus
         appLowercase
         appTrim
         required
         ngDefaultControl
-        [attr.help-text]="translations.emailHelpText"
         [formControl]="formControls.email"
       >
-        <sl-icon name="person-circle" slot="prefix" />
+        <sl-icon name="mail" slot="prefix" />
       </sl-input>
     </div>
     <div class="form-control__container">
       <sl-input
         type="password"
         class="input--primary"
-        placeholder="Enter your password"
+        placeholder="Password"
         password-toggle
-        label="Password"
+        label="Password*"
         size="medium"
-        i18n-label
-        i18n-placeholder
+        i18n-label="@@password-label"
+        i18n-placeholder="@@password-placeholder"
         appSlInputIconFocus
         required
         ngDefaultControl
-        [attr.help-text]="translations.passwordHelpText"
         [formControl]="formControls.password"
       >
         <sl-icon name="lock" slot="prefix" />
@@ -67,83 +61,24 @@
     </div>
     <div class="form-control__container">
       <sl-input
-        type="password"
         class="input--primary"
-        placeholder="Retype the password"
-        password-toggle
-        label="Confirm password"
+        placeholder="Input Phone Number"
+        label="Phone Input*"
         size="medium"
-        i18n-label
-        i18n-placeholder
-        appSlInputIconFocus
-        required
-        ngDefaultControl
-        [attr.help-text]="formState().passwordsMatch ? '' : translations.confirmPasswordHelpText"
-        [formControl]="formControls.confirmPassword"
-      >
-        <sl-icon name="lock" slot="prefix" />
-      </sl-input>
-    </div>
-    <div class="form-control__container">
-      <sl-input
-        type="text"
-        class="input--primary"
-        placeholder="Type a pokemon"
-        label="What's your favourite pokemon?"
-        size="medium"
-        i18n-label
-        i18n-placeholder
+        i18n-label="@@phone-label"
+        i18n-placeholder="@@phone-placeholder"
         appSlInputIconFocus
         appTrim
-        ngDefaultControl
         required
-        [attr.help-text]="formControls.favouritePokemonId['touched'] && !formControls.favouritePokemonId['valid'] ? translations.pokemonHelpText : ''"
-        [formControl]="formControls.favouritePokemonId"
+        ngDefaultControl
+        [formControl]="formControls.phone"
       >
-        <sl-icon name="star" slot="prefix" />
-        @if (formState().isPokemonValidating()) {
-          <img
-            class="loading__image"
-            alt="pokeball"
-            slot="suffix"
-            i18n-alt
-            ngSrc="angularexampleapp/assets/images/pokeball.png"
-            width="100"
-            height="100"
-          />
-        }
+        <sl-icon name="phone" slot="prefix" />
       </sl-input>
     </div>
-    <div class="form-control__container">
-      <sl-checkbox
-        class="checkbox--primary"
-        i18n
-        appSlCheckboxControl
-        [attr.help-text]="formControls.terms['touched'] && !formControls.terms['valid'] ? translations.fieldRequired : ''"
-        [formControl]="formControls.terms"
-      >
-        I’ve caught 'em all (the terms and privacy policy) and I’m cool with them!
-      </sl-checkbox>
-    </div>
-    <div class="form-control__container">
-      <sl-button
-        class="button--primary"
-        size="medium"
-        pill
-        type="submit"
-        [disabled]="formState().isLoading"
-        [class.pokemon-appear]="formState().isRegistrationCompleted"
-        [attr.loading]="formState().isLoading || null"
-      >
-        <ng-container i18n>Create account</ng-container>
-      </sl-button>
-    </div>
-    <div>
-      <p class="form-footer__paragraph">
-        <a class="form-footer__link" [routerLink]="authUrls.logIn">
-          <ng-container i18n>Do you have an account? Log in</ng-container>
-        </a>
-      </p>
-    </div>
+    <button type="submit" class="button--primary" i18n="@@register-button">Register</button>
+    <p class="register-page__footer">
+      <span i18n="@@have-account">Have an account?</span> <a href="/login" class="register-page__login-link" i18n="@@login-link">Login Here</a>
+    </p>
   </form>
 </main>

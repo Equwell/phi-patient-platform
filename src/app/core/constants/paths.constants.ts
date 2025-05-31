@@ -1,6 +1,7 @@
 export const ROOT_PATHS = {
   home: '',
-  myPokemon: 'my-pokemon',
+  myRequests: 'my-requests',
+  onboarding: 'onboarding',
   error404: '404',
 };
 
@@ -11,6 +12,7 @@ export const AUTHENTICATION_PATHS = {
   myAccount: 'my-account',
 };
 
-export const POKEMON_PATHS = {
-  base: 'pokemon',
-};
+// 
+// export const POKEMON_PATHS = {
+//   base: 'pokemon',
+// };

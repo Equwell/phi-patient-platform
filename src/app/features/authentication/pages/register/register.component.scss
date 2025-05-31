@@ -8,64 +8,85 @@ $register-form-max-width: 400px;
 
   text-align: center;
 
-  .register__form {
-    position: relative;
-    max-width: $register-form-max-width;
-    padding: var(--spacing-r-7xl) var(--spacing-r-xl);
-    margin-block-start: var(--spacing-r-6xl);
+  .register-page {
+    &__top-section {
+      max-width: 400px;
+      padding: var(--spacing-r-6xl);
+      margin: 0 auto;
+      text-align: center;
+      background-color: var(--color-light-gray);
 
-    @include mq.for-tablet-up {
-      padding: var(--spacing-r-8xl) var(--spacing-r-xl);
-      margin-block-start: var(--spacing-r-7xl);
-    }
+      &__logo {
+        font-size: 2rem;
+        font-weight: bold;
+        color: var(--color-primary);
 
-    .register-form__image {
-      position: absolute;
-      top: -37px;
-      left: -19px;
-      width: 82px;
-      height: auto;
-      opacity: 0;
-      animation: fade-in 5s forwards;
-
-      &:hover {
-        opacity: 1;
-        animation: fade-out 1s forwards;
+        span {
+          font-style: italic;
+        }
       }
 
-      @include mq.for-tablet-up {
-        top: -42px;
-        left: -40px;
-        width: 95px;
+      &__subtitle {
+        margin-top: var(--spacing-r-md);
+        font-size: 1.125rem;
+        color: var(--color-secondary);
+      }
+
+      &__illustration {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: var(--spacing-r-lg);
+      }
+
+      &__title {
+        font-size: var(--font-size-xxl);
+        font-weight: var(--font-weight-bold);
+        color: var(--color-primary);
       }
     }
 
-    .button--primary.pokemon-appear {
-      border-radius: var(--border-radius-max);
-      animation: flash 0.7s infinite;
+    &__form {
+      max-width: 400px;
+      padding: var(--spacing-r-4xl);
+      margin: 0 auto;
+      background: var(--color-white);
+      border-radius: var(--border-radius-lg);
+      box-shadow: var(--box-shadow-md);
+
+      .form-control__container {
+        margin-bottom: var(--spacing-r-lg);
+      }
+
+      .button--primary {
+        width: 100%;
+        padding: var(--spacing-r-md);
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-bold);
+        color: var(--color-white);
+        cursor: pointer;
+        background-color: var(--color-primary);
+        border: none;
+        border-radius: var(--border-radius-md);
+
+        &:hover {
+          background-color: var(--color-primary-dark);
+        }
+      }
+
+      &__footer {
+        margin-top: var(--spacing-r-lg);
+        font-size: 0.875rem;
+        text-align: center;
+
+        .register-page__login-link {
+          color: var(--color-link);
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
     }
-  }
-}
-
-@keyframes fade-in {
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fade-out {
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes flash {
-  0%,
-  100% {
-    background-color: white;
-  }
-
-  50% {
-    background-color: black;
   }
 }

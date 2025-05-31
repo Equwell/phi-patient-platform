@@ -7,28 +7,96 @@ $login-form-max-width: 400px;
   @include pages.read-page;
 
   text-align: center;
+  background-color: #f5f5f5; // Light gray background for the top section
 
-  .login__form {
-    max-width: $login-form-max-width;
+  .login-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
 
-    .form-footer__paragraph {
-      padding-block-end: 1rem;
+    &__top-section {
+      width: 100%;
+      max-width: 400px; // Fixed order: max-width before padding
+      padding: 3rem 1.5rem; // Fixed order: padding before margin-top
+      margin-top: 2rem;
+      background-color: #fff; // Fixed color-hex-length
+      box-shadow: 0 6px 10px rgb(0 0 0 / 15%); // Fixed modern color-function notation and alpha-value-notation
+
+      .login-page__illustration {
+        max-width: 80%; // Reduced width for better alignment
+        height: auto;
+        margin-bottom: 2rem; // Increased margin for spacing
+      }
+
+      .login-page__title {
+        font-size: 3rem; // Fixed order: font-size before font-weight
+        font-weight: bold;
+        color: #333;
+      }
+
+      .login-page__subtitle {
+        font-size: 1.25rem; // Fixed order: font-size before color
+        color: #6c757d;
+      }
     }
 
-    .login__image-container {
-      position: relative;
+    &__card {
+      width: 100%;
+      max-width: 420px; // Fixed order: max-width before padding
+      padding: 2.5rem; // Fixed order: padding before border-radius
+      background-color: #fff; // Fixed color-hex-length
+      border-radius: 16px;
+      box-shadow: 0 6px 10px rgb(0 0 0 / 15%); // Fixed modern color-function notation and alpha-value-notation
 
-      .login__image {
-        position: absolute;
-        right: 7px;
-        bottom: -52px;
-        width: 55px;
-        height: auto;
+      &__actions {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
 
-        @include mq.for-tablet-up {
-          right: -6px;
-          bottom: -65px;
-          width: 75px;
+        .login-page__remember-me {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+          font-size: 0.875rem;
+          color: #6c757d;
+        }
+
+        .login-page__forgot-password {
+          color: #007bff;
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+
+      .login-page__button {
+        padding: 1rem; // Increased padding for better usability
+        font-size: 1rem; // Adjusted font size
+        font-weight: bold;
+        color: #fff; // White text for better contrast
+        background-color: #4f46e5; // Updated button background color
+        border-radius: 32px; // Increased border radius for a modern look
+
+        &:hover {
+          background-color: #3b3abf; // Darker hover color for better feedback
+        }
+      }
+    }
+
+    &__footer {
+      margin-top: 2.5rem; // Adjusted margin for better spacing
+      font-size: 0.875rem;
+
+      .form-footer__link {
+        color: #007bff;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
         }
       }
     }

@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
-import { NgOptimizedImage } from '@angular/common';
-import { DecorativeHeaderComponent } from '~core/components/decorative-header/decorative-header.component';
-import { CardComponent } from '~core/components/card/card.component';
+import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { interval } from 'rxjs';
 import { AnalyticsService } from '~core/services/analytics.service';
+import { AuthenticationService } from '~features/authentication/services/authentication.service';
+import { UserService } from '~features/authentication/services/user.service';
+import { translations } from '../../../locale/translations';
+import { HomeGuestComponent } from './home-guest.component';
 
 @Component({
   selector: 'app-home',
@@ -11,11 +12,16 @@ import { AnalyticsService } from '~core/services/analytics.service';
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [DecorativeHeaderComponent, NgOptimizedImage, CardComponent],
+  imports: [HomeGuestComponent],
 })
 export class HomeComponent {
   private readonly analyticsService = inject(AnalyticsService);
+  private readonly authenticationService = inject(AuthenticationService);
+  private readonly userService = inject(UserService);
   readonly activeUsersResource = this.analyticsService.getRealtimeUsersResource();
+  readonly isLoggedIn = this.authenticationService.authState().isLoggedIn;
+  readonly translations = translations;
+  readonly user = signal<{ name: string } | null>(null);
 
   constructor() {
     this.activeUsersResource.reload();
@@ -27,5 +33,15 @@ export class HomeComponent {
         sub.unsubscribe();
       };
     });
+    if (this.isLoggedIn) {
+      this.userService.getMe().subscribe({
+        next: (user) => {
+          this.user.set({ name: user.name });
+        },
+        error: () => {
+          this.user.set(null);
+        },
+      });
+    }
   }
 }

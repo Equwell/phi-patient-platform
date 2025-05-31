@@ -1,7 +1,7 @@
 <div align="center">
-  <h1>🚀 Angular Example App</h1>
+  <h1>🚀 Eqwell Patient Platform</h1>
 
-  <p>
+  <!-- <p>
     Your all-in-one <strong>real-world</strong> Angular starter — built for <strong>learning</strong>, <strong>productivity</strong>, and <strong>scaling</strong>.
     <br><br>
     Crafted with ❤️ to showcase real best practices in action: standalone components, signals, routing, i18n, authentication and more.
@@ -9,11 +9,11 @@
     <a href="https://angular-example-app.netlify.app/" target="_blank"><strong>🔥 Live Demo</strong></a>
     <br><br>
     <img src="https://res.cloudinary.com/ismaestro/image/upload/angularexampleapp/assets/images/ash-pikachu.png" alt="Demo example" width="150"/>
-  </p>
+  </p> -->
 </div>
 
----
-
+<!-- --- -->
+<!-- 
 ## 📦 Why This Project?
 
 Whether you're just starting with Angular or looking for a solid base for your next app, this project has you covered.
@@ -30,23 +30,24 @@ Whether you're just starting with Angular or looking for a solid base for your n
 ```bash
 npm i
 npm start
-```
+``` -->
 
----
+<!-- ---
 
 ## 🚨 Live Status
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/f593abee-25b9-424a-bd54-6bc52aff7230/deploy-status)](https://app.netlify.com/sites/angular-example-app/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/f593abee-25b9-424a-bd54-6bc52aff7230/deploy-status)](https://app.netlify.com/sites/angular-example-app/deploys) -->
 
----
+<!-- --- -->
 
 ## 🌍 Backend API
 
-This app connects to a real backend powered by NestJS, PostgreSQL, and Prisma, deployed on Fly.io. You can explore the codebase [here](https://github.com/Ismaestro/nestjs-example-app).
+Add information about API
+<!-- This app connects to a real backend powered by NestJS, PostgreSQL, and Prisma, deployed on Fly.io. You can explore the codebase [here](https://github.com/Ismaestro/nestjs-example-app). -->
 
 ---
 
-## ✨ Features
+<!-- ## ✨ Features
 
 |                        |                                    |
 |------------------------|-------------------------------------------------|
@@ -61,29 +62,29 @@ This app connects to a real backend powered by NestJS, PostgreSQL, and Prisma, d
 | ✅ Animations           | Smooth transitions with Angular Animations      |
 | ✅ Clean Architecture   | Modular folder structure following best practices |
 | ✅ SASS & BEM           | Maintainable and scalable styling               |
-| 🧪 Testing             | Unit & e2e testing (coming soon!)               |
+| 🧪 Testing             | Unit & e2e testing (coming soon!)               | -->
 
----
+<!-- --- -->
 
-## 🧩 Roadmap
+<!-- ## 🧩 Roadmap
 
 - [ ] Component & service testing with Angular Testing Library
-- [ ] End-to-End tests with Playwright
+- [ ] End-to-End tests with Playwright -->
 
----
-
+<!-- --- -->
+<!-- 
 ## 🐛 Found a bug? Got an idea?
 
 We love feedback! If something doesn't work or you think of a cool new feature, [open an issue](https://github.com/Ismaestro/angular-example-app/issues/new) or contribute directly with a PR.
 
----
+--- -->
 
-## 🤝 Contributors
+<!-- ## 🤝 Contributors -->
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
-<table>
+<!-- <table>
   <tbody>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://magicalyak.org"><img src="https://avatars.githubusercontent.com/u/6165889?v=4?s=100" width="100px;" alt="Tom Gamull"/><br /><sub><b>Tom Gamull</b></sub></a><br /><a href="#infra-magicalyak" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
@@ -102,7 +103,7 @@ We love feedback! If something doesn't work or you think of a cool new feature, 
       <td align="center" valign="top" width="14.28%"><a href="https://anartz-mugika.com/qwik-book/es/"><img src="https://avatars.githubusercontent.com/u/5081970?v=4?s=100" width="100px;" alt="Anartz Mugika Ledo"/><br /><sub><b>Anartz Mugika Ledo</b></sub></a><br /><a href="#code-mugan86" title="Code">💻</a></td>
     </tr>
   </tbody>
-</table>
+</table> -->
 
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
@@ -112,5 +113,5 @@ We love feedback! If something doesn't work or you think of a cool new feature, 
 ---
 
 ## License
-
-This project is licensed under the [MIT License](https://github.com/Ismaestro/angular-example-app/blob/master/LICENSE).
+This is a private repository
+<!-- This project is licensed under the [MIT License](https://github.com/Ismaestro/angular-example-app/blob/master/LICENSE). -->

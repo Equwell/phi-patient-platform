@@ -1,0 +1,237 @@
+@use '../../../../../styles/base/media-queries' as mq;
+@use '../../../../../styles/components/pages';
+
+$grid-columns: 3;
+$empty-image-width: 200px;
+
+// ======================
+// Host Component Styles
+// ======================
+:host {
+  @include pages.read-page;
+
+  text-align: center;
+
+  .my-requests__search-container {
+    display: flex;
+    justify-content: center;
+    margin-block-end: var(--spacing-r-5xl);
+  }
+
+  .my-requests__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-r-xl);
+
+    @include mq.for-tablet-up {
+      grid-template-columns: repeat($grid-columns, 1fr);
+    }
+  }
+
+  .requests-empty__container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-r-4xl);
+    align-items: center;
+    padding: 0 16px; // Prevent horizontal overflow
+
+    @include mq.for-tablet-up {
+      padding: 0;
+      margin-left: 60px;
+    }
+
+    .requests-empty__image {
+      width: $empty-image-width;
+      max-width: 100%; // Ensure image responsiveness
+      height: auto;
+    }
+  }
+}
+
+.sidenav-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.spacer {
+  flex: 1 0 auto;
+}
+
+.sidenav-container {
+  display: flex;
+  flex-direction: row;
+  min-height: calc(100vh - 200px);
+  background-color: var(--page-background);
+}
+
+// ======================
+// Hero Section
+// ======================
+.hero-section {
+  margin-bottom: 16px;
+  transition: margin 0.2s ease; // Smooth layout changes
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    @include mq.for-tablet-up {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+}
+
+// ======================
+// Sidenav Components
+// ======================
+.sidenav {
+  display: flex;
+  flex: 30%;
+  height: 100%; // Full-height stability
+  background-color: var(--page-background);
+  box-shadow: 2px 0 8px rgba(0 0 0 / 10%);
+
+  mat-toolbar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+
+    .request-list-item {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid gray;
+
+      .request-type {
+        font-weight: 500;
+      }
+
+      .request-date {
+        font-size: 0.75rem;
+        color: rgb(0 0 0 / 60%);
+      }
+
+      .request-status {
+        display: inline-block;
+        padding: 2px 8px;
+        margin-top: 4px;
+        font-size: 0.75rem;
+        border-radius: 12px;
+
+        &.scheduled {
+          background-color: rgb(66 165 245);
+        }
+
+        &.pending {
+          background-color: rgb(255 183 77);
+        }
+
+        &.completed {
+          background-color: rgb(102 187 106);
+        }
+      }
+    }
+
+    .active {
+      background-color: rgb(26 25 25 / 4%);
+    }
+  }
+}
+
+// ======================
+// Content Area
+// ======================
+.sidenav-content {
+  padding: 16px;
+  overflow-y: auto; // Consistent scrolling
+  background-color: var(--page-background);
+
+  mat-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    margin-bottom: 16px;
+    background: white;
+  }
+
+  .content-area {
+    max-width: 800px;
+    margin: 0 auto;
+    margin-top: 16px;
+
+    .request-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
+    }
+  }
+}
+
+.content-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 400px;
+  padding: 16px;
+  margin-top: 15px;
+  background-color: var(--page-background);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+  transition: box-shadow 0.3s ease;
+
+  &.full {
+    height: 550px;
+  }
+}
+
+// ======================
+// Material Overrides
+// ======================
+// stylelint-disable selector-pseudo-element-no-unknown
+::ng-deep .mat-drawer-container {
+  display: flex;
+  width: 100vw;
+  padding: 16px;
+
+  .mat-drawer-content {
+    min-width: 0; // Fix flex item overflow
+    overflow-y: visible;
+  }
+}
+
+// ======================
+// Responsive Breakpoints
+// ======================
+@include mq.for-phone-only {
+  .container {
+    min-height: calc(100vh - 80px);
+  }
+
+  .sidenav {
+    position: static;
+    width: 100%;
+  }
+
+  .sidenav-content {
+    padding: 16px 8px;
+  }
+}
+
+@media (width <= 767.98px) {
+  .my-requests__grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .sidenav-container {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,47 @@
+@use 'base/media-queries' as mq;
+
+$pokemon-image-size: 100px;
+
+:host {
+  .card__heading {
+    margin-block: 0;
+    font-size: var(--font-size-lg);
+    color: var(--text-color-primary);
+  }
+
+  .pokemon__image-container {
+    width: $pokemon-image-size;
+    height: $pokemon-image-size;
+    margin: 0 auto var(--spacing-r-xl);
+
+    img {
+      height: 100%;
+    }
+  }
+
+  p {
+    margin-bottom: var(--spacing-r-sm);
+  }
+
+  .patient-details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.info-card {
+  color: var(--text-color-primary);
+
+  // flex: 50;
+  background-color: var(--page-background);
+
+  .notifications-icon {
+    color: var(--text-color-primary);
+  }
+
+  .notifications-text {
+    color: var(--text-color-primary);
+  }
+}
+

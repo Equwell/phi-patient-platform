@@ -2,11 +2,11 @@ import type { Observable } from 'rxjs';
 import { catchError, map, of } from 'rxjs';
 import { inject, Injectable, signal } from '@angular/core';
 import type { AbstractControl, AsyncValidator, ValidationErrors } from '@angular/forms';
-import { PokemonService } from '~features/pokemon/services/pokemon.service';
+import { PatientService } from '~features/patient/services/patient.service';
 
 @Injectable({ providedIn: 'root' })
 export class PokemonValidator implements AsyncValidator {
-  private readonly pokemonService = inject(PokemonService);
+  private readonly pokemonService = inject(PatientService);
   private readonly pokemonName = signal('');
 
   readonly pokemonId = signal(-1);
@@ -22,7 +22,7 @@ export class PokemonValidator implements AsyncValidator {
 
     this.pokemonName.set(pokemonName.toLowerCase());
     this.isPokemonValidating.set(true);
-    return this.pokemonService.getPokemon(pokemonName.toLowerCase()).pipe(
+    return this.pokemonService.getPatient(pokemonName.toLowerCase()).pipe(
       map((pokemon) => {
         this.isPokemonValidating.set(false);
         this.pokemonId.set(pokemon.id);

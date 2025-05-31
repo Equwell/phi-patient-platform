@@ -54,7 +54,6 @@ export class AuthenticationService {
           email: registerRequest.email.toLowerCase(),
           password: registerRequest.password,
           name: registerRequest.name,
-          favouritePokemonId: registerRequest.favouritePokemonId,
           terms: registerRequest.terms,
         },
         {

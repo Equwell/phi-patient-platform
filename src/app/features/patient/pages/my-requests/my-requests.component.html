@@ -1,0 +1,171 @@
+<main>
+  <div class="sidenav-header">
+    @if (isHandset$ | async) {
+      <mat-toolbar>
+        <button mat-icon-button type="button" (click)="sidenav.toggle()">
+          <mat-icon i18n>menu</mat-icon>
+        </button>
+      </mat-toolbar>
+    }
+
+    <h2 class="first-heading__title" i18n>Portal</h2>
+    
+    <button i18n type="button" mat-fab extended (click)="createNewRequest()">
+      <mat-icon>add</mat-icon>
+      New Request
+    </button>
+    
+  </div>
+  
+  <!-- Main Content with Sidebar -->
+  <!-- <div class="container"> -->
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav class="sidenav"
+                 [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+      <ng-container *ngrxLet="userRequests$ as userRequests; suspenseTpl: loading">
+        <div class="my-requests__search-container">
+          <button type="button" mat-stroked-button (click)="togglePatientDetailsVisibility()">
+            @if (!isPatientDetailsVisible) {
+              <mat-icon i18n class="icon">visibility</mat-icon>
+            }
+            @else {
+              <mat-icon i18n class="icon">visibility_off</mat-icon>
+            }
+            <!-- {{ isPatientDetailsVisible ? translations.hidePatientDetails : translations.showPatientDetails }} -->
+            {{ isPatientDetailsVisible ? 'Hide details' : 'Show details' }}
+          </button>
+
+          <app-search-input
+            [title]="userRequests?.length ? translations.findMore : translations.findPatientRequests"
+          />
+        </div>
+        
+        @if (!patientRequests.length) {
+          <div class="requests-empty__container">
+            <div>
+              <p i18n>
+                It seems like you dont have any requests, need help from the clinic.
+                If you need any help please open a request.
+              </p>
+            </div>
+            <!-- <div> -->
+              <!-- <img
+                class="requests-empty__image"
+                alt="jumping"
+                i18n-alt
+                ngSrc="angularexampleapp/assets/images/jumping.png"
+                width="675"
+                height="1280"
+              /> -->
+            <!-- </div> -->
+          </div>
+        } @else {
+          <!-- TODO: relevant for the search feature -->
+          <!-- <ul i18n class="my-requests__grid">
+            @for (request of patientRequests | ngrxPush; track request.id) {
+              <li>
+                <app-pokemon-card [pokemon]="request" />
+              </li>
+            }
+          </ul> -->
+        }
+      </ng-container>
+        
+      <mat-nav-list>
+  
+        @for (request of patientRequests | ngrxPush ; track request.id) {
+          <a mat-list-item
+              tabindex="0"
+              (click)="selectRequest(request)"
+              (keydown.enter)="selectRequest(request)"
+              (keydown.space)="selectRequest(request)">
+            <div class="request-list-item" [class.active]="selectedRequest?.id === request.id">
+              <div class="request-type">{{ request.type }}</div>
+              <div class="request-date">{{ request.date | date:'shortDate' }}</div>
+              <div class="request-status" [ngClass]="request.status.toLowerCase()">
+                {{ request.status }}
+              </div>
+            </div>
+          </a>
+        }
+      </mat-nav-list>
+    </mat-sidenav>
+      
+    <!-- Main Content: Selected Request Details -->
+    <mat-sidenav-content class="sidenav-content my-requests__grid">
+      <ng-container *ngrxLet="patient | ngrxPush ; suspenseTpl: loading">
+        <!-- Hero Section -->
+        <div>
+        @if (isPatientDetailsVisible) {
+          <app-patient-card [patient]="patient" [notifications]="notifications" />
+        }
+        
+        
+        @if (selectedRequest) {
+          <!-- <div class="content-area"> -->
+            <mat-card class="content-card" [class.full]="!isPatientDetailsVisible">
+              <mat-card-header>
+                <mat-card-title>{{ selectedRequest.type }}</mat-card-title>
+                <mat-card-subtitle>
+                  {{ selectedRequest.date | date:'fullDate' }} | 
+                  <span [ngClass]="selectedRequest.status.toLowerCase()">{{ selectedRequest.status }}</span>
+                </mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <p>{{ selectedRequest.details }}</p>
+                
+                <div class="request-actions">
+                  @if (selectedRequest.status !== 'Completed') {
+                    <button type="button" i18n mat-raised-button color="primary">
+                      Update Request
+                    </button>
+                    <button type="button" i18n mat-stroked-button color="warn">
+                      Cancel Request
+                    </button>
+                  }
+                  @if (selectedRequest.status === 'Completed') {
+                    <button type="button" i18n mat-stroked-button>
+                      Archive
+                    </button>
+                  }
+                </div>
+              </mat-card-content>
+            </mat-card>
+          <!-- </div> -->
+        }
+        </div>
+      </ng-container>
+      <ng-template #loading>
+        <ul class="my-requests__grid">
+          <li>
+            <app-patient-card [loading]="true" />
+          </li>
+          <li>
+            <app-patient-card [loading]="true" />
+          </li>
+          <li>
+            <app-patient-card [loading]="true" />
+          </li>
+        </ul>
+      </ng-template>
+
+      <!-- <h1 i18n ngProjectAs="heading">
+        Patient Portal
+      </h1> -->
+      
+      
+      
+      @if (!selectedRequest) {
+        <div class="content-area">
+          <mat-card>
+            <mat-card-content>
+              <p i18n>Please select a request from the sidebar to view details.</p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      }
+
+      
+    </mat-sidenav-content>
+  </mat-sidenav-container>  
+</main>

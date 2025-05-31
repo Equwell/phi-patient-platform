@@ -16,7 +16,7 @@ import { ThemeButtonComponent } from '~core/components/theme-button/theme-button
 import { ROOT_PATHS } from '~core/constants/paths.constants';
 import { translations } from '../../../../locale/translations';
 import type { SlDropdown } from '@shoelace-style/shoelace';
-import { PokemonSearchInputComponent } from '~features/pokemon/components/pokemon-search-input/pokemon-search-input.component';
+import { SearchInputComponent } from '~features/patient/components/search-input/search-input.component';
 
 import '@shoelace-style/shoelace/dist/components/button/button.js';
 import '@shoelace-style/shoelace/dist/components/icon/icon.js';
@@ -34,7 +34,7 @@ import '@shoelace-style/shoelace/dist/components/dropdown/dropdown.js';
     LanguageSelectorComponent,
     NgTemplateOutlet,
     ThemeButtonComponent,
-    PokemonSearchInputComponent,
+    SearchInputComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

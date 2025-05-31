@@ -1,13 +1,12 @@
 import type { FormControl, FormGroup } from '@angular/forms';
-import type { WritableSignal } from '@angular/core';
 
 export type RegisterFormGroup = FormGroup<{
   name: FormControl<string>;
   email: FormControl<string>;
   password: FormControl<string>;
   confirmPassword: FormControl<string>;
-  favouritePokemonId: FormControl<string>;
   terms: FormControl<boolean | null>;
+  phone: FormControl<string>; // Added phone field
 }>;
 
 export type RegisterFormValue = {
@@ -15,8 +14,8 @@ export type RegisterFormValue = {
   email: string;
   password: string;
   confirmPassword: string;
-  favouritePokemonId: number;
-  terms: boolean;
+  terms: boolean | null;
+  phone: string; // Added phone field
 };
 
 export type RegisterFormState = {
@@ -24,5 +23,4 @@ export type RegisterFormState = {
   isSubmitted: boolean;
   isRegistrationCompleted: boolean;
   passwordsMatch: boolean;
-  isPokemonValidating: WritableSignal<boolean>;
 };

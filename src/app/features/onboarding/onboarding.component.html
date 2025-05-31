@@ -1,0 +1,34 @@
+<main class="onboarding">
+  <div class="onboarding__header-row">
+    <div></div>
+    @if (isActive !== 4) {
+        <div class="onboarding__ai-label" i18n="@@aiDoctorLabel">AI doctor</div>
+    }
+  </div>
+  <section class="onboarding__illustration">
+    @if (isActive === 4) {
+        <div class="onboarding__ai-label" i18n="@@aiDoctorLabel">AI doctor</div>
+    }
+    <svg width="150" height="150" viewBox="0 0 266 261" fill="none" xmlns="http://www.w3.org/2000/svg" class="drawing-loader">
+        <path opacity="0.8" d="M212 213.5C27.4994 388.5 53.3914 -46.9966 64.0511 6.84312C111.665 247.33 133.371 2.36259 187.664 59.9187C241.958 117.475 326.91 306.575 187.115 247.33C47.3189 188.085 321.229 38.6843 241.5 31.5003C161.77 24.3162 -42.5935 104.486 11.7552 138.282C55.2342 165.32 187.664 213.5 231.841 125" stroke="#989696" stroke-width="4" class="drawing-loader__path"/>
+    </svg>
+  </section>
+  <section class="onboarding__welcome-text">
+    <div class="onboarding__subtitle" i18n="@@welcomeText">{{ views[isActive] }}</div>
+  </section>
+  @if (isActive !== 4) {
+    <div class="onboarding__view-indicator">
+        <span class="onboarding__ellipse" [class.onboarding__ellipse--active]="isActive === 0"></span>
+        <span class="onboarding__ellipse" [class.onboarding__ellipse--active]="isActive === 1"></span>
+        <span class="onboarding__ellipse" [class.onboarding__ellipse--active]="isActive === 2"></span>
+        <span class="onboarding__ellipse" [class.onboarding__ellipse--active]="isActive === 3"></span>
+        <span class="onboarding__ellipse" [class.onboarding__ellipse--active]="isActive === 4"></span>
+    </div>
+    <button i18n="@@nextButton" class="onboarding__next-btn" type="button" (click)="onNext()">Next</button>
+  }
+  @else {
+    <button i18n="@@signupApple" class="onboarding__next-btn" type="button" (click)="onAppleSignup()">Signup with Apple</button>
+    <button i18n="@@signupGoogle" class="onboarding__next-btn" type="button" (click)="onGoogleSignup()">Signup with Google</button>
+    <button i18n="@@loginButton" class="onboarding__next-btn" type="button" (click)="onLogin()">or log in</button>
+  }
+</main>

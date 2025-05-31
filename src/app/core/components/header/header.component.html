@@ -84,7 +84,7 @@
           routerLinkActive="active"
           ariaCurrentWhenActive="page"
           [routerLinkActiveOptions]="{ exact: true }"
-          [routerLink]="ROOT_PATHS.myPokemon"
+          [routerLink]="ROOT_PATHS.myRequests"
           (click)="closeMenu()"
         >
           {{ translations.myPokemon }}
@@ -93,7 +93,7 @@
 
       <!-- SEARCH -->
       <div class="nav__item">
-        <app-pokemon-search-input />
+        <app-search-input />
       </div>
 
       <!-- USER MENU -->

@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/cor
 import { translations } from '../locale/translations';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { HeaderComponent } from '~core/components/header/header.component';
 import { FooterComponent } from '~core/components/footer/footer.component';
 import { DOCUMENT } from '@angular/common';
 import { filter, map } from 'rxjs';
@@ -19,7 +18,7 @@ import { ToastStackComponent } from '~core/components/toast-stack/toast-stack.co
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterOutlet,
-    HeaderComponent,
+    // HeaderComponent,
     FooterComponent,
     ProgressBarComponent,
     CookiePopupComponent,
