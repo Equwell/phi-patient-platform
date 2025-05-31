@@ -1,11 +1,25 @@
 <main class="login-page">
   <div class="login-page__top-section">
-    <img ngSrc="assets/images/drawing.svg" alt="AI Doctor Illustration" class="login-page__illustration" />
-    <h1 class="login-page__title" i18n>AI Doctor</h1>
-    <p class="login-page__subtitle" i18n>Please Login to Online Consultant</p>
+    <div class="login-page__logo-wrapper">
+      <div class="login-page__illustration" aria-hidden="true">
+        <svg width="320" height="224" viewBox="0 0 400 280" fill="none" xmlns="http://www.w3.org/2000/svg" class="login-page__atom-svg">
+          <g transform="translate(40,0)">
+            <path opacity="0.8" d="M212 213.5C27.4994 388.5 53.3914 -46.9966 64.0511 6.84312C111.665 247.33 133.371 2.36259 187.664 59.9187C241.958 117.475 326.91 306.575 187.115 247.33C47.3189 188.085 321.229 38.6843 241.5 31.5003C161.77 24.3162 -42.5935 104.486 11.7552 138.282C55.2342 165.32 187.664 213.5 231.841 125" stroke="#989696" stroke-width="4"/>
+          </g>
+        </svg>
+      </div>
+      <div class="login-page__logo-text">
+        <div class="login-page__logo-text-inner">
+          <span class="login-page__logo-ai" i18n>AI</span><br />
+          <span class="login-page__logo-doctor" i18n>doctor</span>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="login-page__card">
     <form class="login-page__form" [formGroup]="logInForm" (ngSubmit)="sendForm()">
+      <h2 class="login-page__form-title" i18n>Login</h2>
+      <p class="login-page__form-subtitle" i18n>Please Login to Online Consultant</p>
       <div class="form-control__container">
         <sl-input
           class="input--primary"
@@ -22,7 +36,7 @@
           [attr.help-text]="formState().isSubmitted && formControls.email.invalid ? translations.emailHelpText : ''"
           [formControl]="formControls.email"
         >
-          <sl-icon name="person-circle" slot="prefix" />
+          <sl-icon name="envelope" slot="prefix" />
         </sl-input>
       </div>
       <div class="form-control__container">
@@ -44,25 +58,22 @@
           <sl-icon name="lock" slot="prefix" />
         </sl-input>
       </div>
-      <div class="form-control__container login-page__actions">
-        <div class="login-page__remember-me">
-          <sl-checkbox i18n>Remember Me</sl-checkbox>
-          <a class="login-page__forgot-password" href="#" i18n>Forgot Password?</a>
-        </div>
-        <sl-button
-          class="button--primary login-page__button"
-          size="large"
-          pill
-          type="submit"
-          [disabled]="formState().isLoading"
-          [attr.loading]="formState().isLoading || null"
-        >
-          <ng-container i18n>Login</ng-container>
-        </sl-button>
+      <div class="login-page__actions-row">
+        <sl-checkbox class="login-page__remember-me" i18n>Remember Me</sl-checkbox>
+        <a class="login-page__forgot-password" href="#" i18n>Forgot Password?</a>
       </div>
+      <sl-button
+        class="button--primary login-page__button"
+        size="large"
+        type="submit"
+        [disabled]="formState().isLoading"
+        [attr.loading]="formState().isLoading || null"
+      >
+        <ng-container i18n>Login</ng-container>
+      </sl-button>
       <div class="login-page__footer">
         <p class="form-footer__paragraph">
-          <ng-container i18n>Don’t Have an account?</ng-container>
+          <ng-container i18n>Don't Have an account?</ng-container>
           <a class="form-footer__link" [routerLink]="authUrls.register">
             <ng-container i18n>Register Here</ng-container>
           </a>
