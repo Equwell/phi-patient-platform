@@ -2,7 +2,7 @@ import { inject, Injectable, signal, linkedSignal } from '@angular/core';
 import { LOCAL_STORAGE } from '~core/providers/local-storage';
 import { HttpClient } from '@angular/common/http';
 import type { Observable } from 'rxjs';
-import { map } from 'rxjs';
+import { map, tap } from 'rxjs';
 import type { LoginRequest } from '~features/authentication/types/login-request.type';
 import type { LoginResponse } from '~features/authentication/types/login-response.type';
 import type {
@@ -19,6 +19,8 @@ import { clearCache } from '~core/interceptors/caching.interceptor';
 import { getEndpoints } from '~core/constants/endpoints.constants';
 import type { RegisterFormValue } from '~features/authentication/pages/register/register-form.types';
 import { ApiResponse } from '~core/types/api-response.types';
+import type { GetMeResponse, GetMeResponseData } from '~features/authentication/types/get-me-response.type';
+import { UserStore } from './user.store';
 
 export const ACCESS_TOKEN_KEY = 'access-token';
 export const REFRESH_TOKEN_KEY = 'refresh-token';
@@ -31,6 +33,7 @@ export class AuthenticationService {
   private readonly storageService = inject(LOCAL_STORAGE);
   private readonly httpClient = inject(HttpClient);
   private readonly languageService = inject(LanguageService);
+  private readonly userStore = inject(UserStore);
 
   private readonly authTokens = signal<{ accessToken?: string; refreshToken?: string }>({
     accessToken: this.storageService?.getItem(ACCESS_TOKEN_KEY) ?? undefined,
@@ -108,6 +111,7 @@ export class AuthenticationService {
   logOut() {
     clearCache();
     this.removeTokens();
+    this.userStore.clearUser();
   }
 
   private saveTokens(data: { accessToken: string; refreshToken?: string }) {
@@ -125,5 +129,21 @@ export class AuthenticationService {
     this.storageService?.removeItem(ACCESS_TOKEN_KEY);
     this.storageService?.removeItem(REFRESH_TOKEN_KEY);
     this.authTokens.set({});
+  }
+
+  getCurrentUser(): Observable<User> {
+    return this.httpClient
+      .get<ApiResponse<User>>(this.endpoints.auth.v1.getCurrentUser)
+      .pipe(
+        map((response: ApiResponse<User>) => {
+          if (!response.success) {
+            throw new Error(response.message);
+          }
+          return response.data;
+        }),
+        tap((user: User) => {
+          this.userStore.setUser(user);
+        })
+      );
   }
 }

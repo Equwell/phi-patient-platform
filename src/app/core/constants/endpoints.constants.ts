@@ -6,7 +6,8 @@ const getAuthEndpoints = (environment: Environment) => ({
   v1: {
     authentication: `${environment.apiBaseUrl}/auth/signup`,
     login: `${environment.apiBaseUrl}/auth/login`,
-    refreshToken: `${environment.apiBaseUrl}/v1/authentication/token/refresh`,
+    refreshToken: `${environment.apiBaseUrl}/v1/auth/token/refresh`, // not refresh token in hippa apps ? 
+    getCurrentUser: `${environment.apiBaseUrl}/auth/current`,
   },
 });
 

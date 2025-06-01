@@ -74,7 +74,7 @@ export class MyAccountComponent implements OnInit {
       .subscribe({
         next: (user: User) => {
           this.user = user;
-          this.name.setValue(this.user.name);
+          this.name.setValue(this.user.firstName + " " + this.user.lastName);
           this.email.setValue(this.user.email);
           this.language.setValue(this.user.language);
         },

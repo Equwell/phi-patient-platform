@@ -98,10 +98,18 @@ export class LogInComponent {
           this.handleLoginError(response);
           return;
         }
+   
+
+        // this should probably be in the app component , to get the current user
+        this.authService.getCurrentUser().subscribe((user) => {
+     
+          console.log(user);
+          this.alertService.createSuccessAlert(response.message || 'Login successful!');
       
-        this.alertService.createSuccessAlert(response.message || 'Login successful!');
-        const userlang = Language["EN_US"]  /// todo: get the user lang after calling "get current end point"
-        this.languageService.navigateWithUserLanguage(userlang, ROOT_URLS.myPokedex);
+          const userlang = Language["EN_US"]  /// todo: get the user lang after calling "get current end point"
+          this.languageService.navigateWithUserLanguage(userlang, ROOT_URLS.myPokedex);
+        })
+       
       });
   }
 
@@ -147,4 +155,5 @@ export class LogInComponent {
   private updateFormState(updates: Partial<LogInFormState>): void {
     this.formState.update((state) => ({ ...state, ...updates }));
   }
+
 }

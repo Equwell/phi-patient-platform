@@ -8,7 +8,7 @@
         <div class="avatar-placeholder"></div>
       </div>
       <div class="greeting-center">
-        <h2 i18n>Hello, {{ user()?.name || 'User' }}</h2>
+        <h2 i18n>Hello, {{ user()?.firstName }} {{ user()?.lastName }}</h2>
         <p i18n>let's diagnose your issue</p>
       </div>
       <div class="greeting-right">

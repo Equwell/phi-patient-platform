@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { interval } from 'rxjs';
 import { AnalyticsService } from '~core/services/analytics.service';
-import { AuthenticationService } from '~features/authentication/services/authentication.service';
+import { AuthenticationService } from '../authentication/services/authentication.service';
 import { UserService } from '~features/authentication/services/user.service';
 import { translations } from '../../../locale/translations';
 import { HomeGuestComponent } from './home-guest.component';
 import { Router } from '@angular/router';
 import { ROOT_PATHS } from '~core/constants/paths.constants';
+import { UserStore } from '../authentication/services/user.store';
 
 @Component({
   selector: 'app-home',
@@ -18,14 +19,15 @@ import { ROOT_PATHS } from '~core/constants/paths.constants';
 })
 export class HomeComponent {
   private readonly analyticsService = inject(AnalyticsService);
-  private readonly authenticationService = inject(AuthenticationService);
+  private readonly authService = inject(AuthenticationService);
   private readonly userService = inject(UserService);
   private readonly router = inject(Router);
+  private readonly userStore = inject(UserStore);
   
   readonly activeUsersResource = this.analyticsService.getRealtimeUsersResource();
-  readonly isLoggedIn = this.authenticationService.authState().isLoggedIn;
+  readonly isLoggedIn = this.authService.authState().isLoggedIn;
   readonly translations = translations;
-  readonly user = signal<{ name: string } | null>(null);
+  readonly user = this.userStore.user;
 
   constructor() {
     this.activeUsersResource.reload();
@@ -40,19 +42,18 @@ export class HomeComponent {
     if (this.isLoggedIn) {
       this.userService.getMe().subscribe({
         next: (user) => {
-          this.user.set({ name: user.name });
+          this.userStore.updateUser(user);
         },
         error: () => {
-          this.user.set(null);
+          this.userStore.updateUser(null);
         },
       });
     }
   }
 
-  logout() {
-    this.authenticationService.logOut();
-    void this.router.navigate([ROOT_PATHS.home]).then(() => {
-      window.location.reload();
-    });
+  logout(): void {
+    this.authService.logOut();
+    // Force a page reload to ensure clean state
+    window.location.href = ROOT_PATHS.home;
   }
 }
