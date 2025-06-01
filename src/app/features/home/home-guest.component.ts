@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgOptimizedImage } from '@angular/common';
 
 @Component({
@@ -9,4 +10,14 @@ import { NgOptimizedImage } from '@angular/common';
   standalone: true,
   imports: [NgOptimizedImage],
 })
-export class HomeGuestComponent {} 
+export class HomeGuestComponent {
+  constructor(private router: Router) {}
+
+  goToLogin() {
+    this.router.navigate(['/auth/log-in']);
+  }
+
+  goToSignup() {
+    this.router.navigate(['/auth/register']);
+  }
+} 

@@ -11,7 +11,7 @@ $figma-input-border: #DCDCDC;
 $figma-button-radius: 12px;
 $figma-button-bg: #C2C2C2;
 $figma-button-color: #fff;
-$figma-header-font-size: 46px;
+$figma-header-font-size: 36px;
 $figma-header-font-family: 'Roboto', helvetica, arial, sans-serif;
 $figma-header-font-weight-bold: 700;
 $figma-header-font-weight-normal: 400;
@@ -19,6 +19,10 @@ $figma-header-color: #000;
 $figma-card-shadow: 0 4px 24px rgb(0 0 0 / 6%);
 
 :host {
+
+  .sl-icon {
+    font-size: 12px;
+  }
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -148,7 +152,7 @@ $figma-card-shadow: 0 4px 24px rgb(0 0 0 / 6%);
     &__form {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 00px;
       align-items: flex-start;
       width: 100%;
     }
@@ -157,7 +161,7 @@ $figma-card-shadow: 0 4px 24px rgb(0 0 0 / 6%);
       width: 100%;
       margin-bottom: 0.5rem;
       font-family: Helvetica, Arial, sans-serif;
-      font-size: 32px;
+      font-size: 25px;
       font-weight: 700;
       color: #111;
       text-align: left;
@@ -167,14 +171,14 @@ $figma-card-shadow: 0 4px 24px rgb(0 0 0 / 6%);
       width: 100%;
       margin-bottom: 1.5rem;
       font-family: Helvetica, Arial, sans-serif;
-      font-size: 16px;
+      font-size: 15px;
       color: #939393;
       text-align: left;
     }
 
     .form-control__container {
       width: 100%;
-      margin-bottom: 0.5rem;
+      margin-bottom: 18px;
     }
 
     sl-input.input--primary {
@@ -196,7 +200,7 @@ $figma-card-shadow: 0 4px 24px rgb(0 0 0 / 6%);
     }
 
     sl-icon[slot="prefix"] {
-      font-size: 24px;
+      font-size: 17px;
       color: #C2C2C2;
     }
 
@@ -248,15 +252,15 @@ $figma-card-shadow: 0 4px 24px rgb(0 0 0 / 6%);
   @media (width <= 400px) {
     .register-page__card {
       box-sizing: border-box;
-      width: 95vw;
-      max-width: 95vw;
-      padding: 16px 4px 12px;
+      width: 100vw;
+      max-width: 100vw;
+      padding: 0 20px;
       border-radius: 24px;
     }
 
     .register-page__top-section {
-      min-height: 180px;
-      padding-top: 32px;
+      min-height: 100px;
+      padding-top: 15px;
     }
 
     .register-page__logo-wrapper {
@@ -265,7 +269,7 @@ $figma-card-shadow: 0 4px 24px rgb(0 0 0 / 6%);
     }
 
     .register-page__logo-ai, .register-page__logo-doctor {
-      font-size: 40px;
+      font-size: 30px;
     }
 
     .register-page__illustration {
@@ -276,5 +280,53 @@ $figma-card-shadow: 0 4px 24px rgb(0 0 0 / 6%);
 
   html, body, :host {
     overflow-x: hidden;
+  }
+}
+
+.register-label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 7px;
+  font-size: 12px;
+  color: black;
+}
+
+.form-control__label {
+  display: none !important;
+}
+
+sl-input.input--primary::part(input)::-webkit-input-placeholder {
+  font-size: 12px;
+}
+sl-input.input--primary::part(input)::-moz-placeholder {
+  font-size: 12px;
+}
+sl-input.input--primary::part(input):-ms-input-placeholder {
+  font-size: 12px;
+}
+sl-input.input--primary::part(input)::placeholder {
+  font-size: 12px;
+}
+
+.phone-input-container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  .phone-prefix {
+    width: 100px;
+    flex-shrink: 0;
+
+    &::part(select) {
+      height: 100%;
+      font-size: 14px;
+      background: #fff;
+      border-radius: $figma-input-radius;
+      border: 1px solid $figma-input-border;
+    }
+  }
+
+  .phone-number {
+    flex: 1;
   }
 }

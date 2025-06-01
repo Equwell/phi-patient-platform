@@ -1,10 +1,10 @@
 import type { FormControl, FormGroup } from '@angular/forms';
 
 export type LogInFormGroup = FormGroup<{
-  email: FormControl<string>;
+  username: FormControl<string>;
   password: FormControl<string>;
-  phone: FormControl<string>;
-  rememberMe: FormControl<boolean>;
+  // phone: FormControl<string>;
+  // rememberMe: FormControl<boolean>;
 }>;
 
 export type LogInFormState = {

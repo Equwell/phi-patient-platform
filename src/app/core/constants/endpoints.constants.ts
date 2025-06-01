@@ -4,8 +4,8 @@ import { ENVIRONMENT } from '~core/tokens/environment.token';
 
 const getAuthEndpoints = (environment: Environment) => ({
   v1: {
-    authentication: `${environment.apiBaseUrl}/v1/authentication`,
-    login: `${environment.apiBaseUrl}/v1/authentication/login`,
+    authentication: `${environment.apiBaseUrl}/auth/signup`,
+    login: `${environment.apiBaseUrl}/auth/login`,
     refreshToken: `${environment.apiBaseUrl}/v1/authentication/token/refresh`,
   },
 });

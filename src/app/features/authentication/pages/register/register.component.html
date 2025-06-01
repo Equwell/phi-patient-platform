@@ -2,7 +2,7 @@
   <div class="register-page__top-section">
     <div class="register-page__logo-wrapper">
       <div class="register-page__illustration" aria-hidden="true">
-        <svg width="320" height="180" viewBox="0 0 400 280" fill="none" xmlns="http://www.w3.org/2000/svg" class="register-page__atom-svg">
+        <svg width="100%" height="auto" viewBox="0 0 400 280" fill="none" xmlns="http://www.w3.org/2000/svg" class="register-page__atom-svg">
           <g transform="translate(40,0)">
             <path opacity="0.8" d="M212 213.5C27.4994 388.5 53.3914 -46.9966 64.0511 6.84312C111.665 247.33 133.371 2.36259 187.664 59.9187C241.958 117.475 326.91 306.575 187.115 247.33C47.3189 188.085 321.229 38.6843 241.5 31.5003C161.77 24.3162 -42.5935 104.486 11.7552 138.282C55.2342 165.32 187.664 213.5 231.841 125" stroke="#989696" stroke-width="4"/>
           </g>
@@ -20,30 +20,44 @@
     <form class="register-page__form" [formGroup]="registerForm" (ngSubmit)="sendForm()">
       <h2 class="register-page__form-title" i18n>Register</h2>
       <p class="register-page__form-subtitle" i18n>Please Register Before Login</p>
-      <div class="form-control__container">
-        <sl-input
-          class="input--primary"
-          placeholder="Fullname"
-          label="Full Name*"
-          size="medium"
-          i18n-label="@@fullname-label"
-          i18n-placeholder="@@fullname-placeholder"
-          appSlInputIconFocus
-          appTrim
-          required
-          ngDefaultControl
-          [formControl]="formControls.name"
-        >
-          <sl-icon name="person" slot="prefix" />
-        </sl-input>
+      <div class="form-control__container" style="display: flex; gap: 12px;">
+        <div style="flex: 1;" style="width: 47%;">
+          <label for="register-first-name" class="register-label" >First Name*</label>
+          <sl-input
+            id="register-first-name"
+            class="input--primary"
+            placeholder="First name"
+            appSlInputIconFocus
+            appTrim
+            required
+            ngDefaultControl
+            [formControl]="formControls.firstName"
+          >
+            <sl-icon name="person" slot="prefix" />
+          </sl-input>
+        </div>
+        <div style="flex: 1;" style="width: 47%;">
+          <label for="register-last-name" class="register-label" >Last Name*</label>
+          <sl-input
+            id="register-last-name"
+            class="input--primary"
+            placeholder="Last name"
+            appSlInputIconFocus
+            appTrim
+            required
+            ngDefaultControl
+            [formControl]="formControls.lastName"
+          >
+            <sl-icon name="person" slot="prefix" />
+          </sl-input>
+        </div>
       </div>
       <div class="form-control__container">
+        <label for="register-email" class="register-label">Email*</label>
         <sl-input
+          id="register-email"
           class="input--primary"
-          placeholder="Placeholder"
-          label="Email*"
-          size="medium"
-          i18n-label="@@email-label"
+          placeholder="Email"
           i18n-placeholder="@@email-placeholder"
           appSlInputIconFocus
           appLowercase
@@ -52,17 +66,17 @@
           ngDefaultControl
           [formControl]="formControls.email"
         >
-          <sl-icon name="mail" slot="prefix" />
+          <sl-icon name="envelope-at" slot="prefix" />
         </sl-input>
       </div>
       <div class="form-control__container">
+        <label for="register-password" class="register-label">Password*</label>
         <sl-input
+          id="register-password"
           type="password"
           class="input--primary"
           placeholder="Password"
           password-toggle
-          label="Password*"
-          size="medium"
           i18n-label="@@password-label"
           i18n-placeholder="@@password-placeholder"
           appSlInputIconFocus
@@ -74,21 +88,47 @@
         </sl-input>
       </div>
       <div class="form-control__container">
-        <sl-input
-          class="input--primary"
-          placeholder="Input Phone Number"
-          label="Phone Input*"
-          size="medium"
-          i18n-label="@@phone-label"
-          i18n-placeholder="@@phone-placeholder"
-          appSlInputIconFocus
-          appTrim
-          required
-          ngDefaultControl
-          [formControl]="formControls.phone"
-        >
-          <sl-icon name="phone" slot="prefix" />
-        </sl-input>
+        <label for="register-phone" class="register-label">Phone*</label>
+        <div class="phone-input-container" style="display: flex; gap: 8px;">
+          <sl-input
+            id="register-country-code"
+            class="input--primary"
+            placeholder="+972"
+            required
+            ngDefaultControl
+            [formControl]="formControls.countryCode"
+            style="width: 90px;"
+          >
+            <sl-icon name="globe" slot="prefix" />
+          </sl-input>
+      
+          <sl-input
+            id="register-phone"
+            class="input--primary phone-number"
+            placeholder="Phone Number"
+            i18n-placeholder="@@phone-placeholder"
+            appSlInputIconFocus
+            appTrim
+            required
+            ngDefaultControl
+            [formControl]="formControls.phone"
+            style="flex: 1;"
+          >
+            <sl-icon name="phone" slot="prefix" />
+          </sl-input>
+        </div>
+      
+        <div class="validation-error" *ngIf="formControls.phone.touched && formControls.phone.errors">
+          <small *ngIf="formControls.phone.errors['required']" i18n>Phone number is required.</small>
+          <small *ngIf="formControls.phone.errors['pattern']" i18n>Phone number should contain only digits.</small>
+          <small *ngIf="formControls.phone.errors['tooShort']" i18n>Phone number is too short.</small>
+          <small *ngIf="formControls.phone.errors['tooLong']" i18n>Phone number is too long.</small>
+          <small *ngIf="formControls.phone.errors['invalidPhone']" i18n>Invalid phone number for the selected country code.</small>
+        </div>
+        <div class="validation-error" *ngIf="formControls.countryCode.touched && formControls.countryCode.errors">
+          <small *ngIf="formControls.countryCode.errors['required']" i18n>Country code is required.</small>
+          <small *ngIf="formControls.countryCode.errors['pattern']" i18n>Invalid country code format. Use format: +XXX.</small>
+        </div>
       </div>
       <sl-button
         class="button--primary register-page__button"

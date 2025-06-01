@@ -4,6 +4,11 @@
     <p i18n="@@letsDiagnose">let's diagnose your issue</p>
   </section>
 
+  <section class="auth-buttons">
+    <button class="auth-button auth-button--login" (click)="goToLogin()" i18n="@@login">Login</button>
+    <button class="auth-button auth-button--signup" (click)="goToSignup()" i18n="@@signup">Sign Up</button>
+  </section>
+
   <section class="interaction-section">
     <div class="interaction-box interaction-box--row">
       <div class="interaction-left-card">
@@ -35,26 +40,26 @@
 
   <section class="main-actions">
     <div class="action-card">
-      <div class="action-card__icon action-card__icon--appointment"></div>
+      <div class="action-card__icon"></div>
       <div class="action-card__content">
-        <div class="action-card__title" i18n="@@makeAppointment">make an appointment</div>
-        <div class="action-card__subtitle" i18n="@@appointmentOfAppointment">Appointment of an appointment</div>
+        <div class="action-card__title">Make an appointment</div>
+        <div class="action-card__subtitle">Appointment of an appointment</div>
       </div>
       <div class="action-card__arrow">→</div>
     </div>
     <div class="action-card">
-      <div class="action-card__icon action-card__icon--howto"></div>
+      <div class="action-card__icon"></div>
       <div class="action-card__content">
-        <div class="action-card__title" i18n="@@howToUseAIDoctor">How to use AI Doctor</div>
-        <div class="action-card__subtitle" i18n="@@stepByStepGuides">step by step guides</div>
+        <div class="action-card__title">How to use AI Doctor</div>
+        <div class="action-card__subtitle">Step by step guides</div>
       </div>
       <div class="action-card__arrow">→</div>
     </div>
     <div class="action-card">
-      <div class="action-card__icon action-card__icon--news"></div>
+      <div class="action-card__icon"></div>
       <div class="action-card__content">
-        <div class="action-card__title" i18n="@@orthopedicsNews">Orthopedics News</div>
-        <div class="action-card__subtitle" i18n="@@latestOrthopaedicsNews">Latest Orthopaedics news</div>
+        <div class="action-card__title">Orthopedics News</div>
+        <div class="action-card__subtitle">Latest Orthopaedics news</div>
       </div>
       <div class="action-card__arrow">→</div>
     </div>

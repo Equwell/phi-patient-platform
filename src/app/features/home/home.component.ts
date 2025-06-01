@@ -5,6 +5,8 @@ import { AuthenticationService } from '~features/authentication/services/authent
 import { UserService } from '~features/authentication/services/user.service';
 import { translations } from '../../../locale/translations';
 import { HomeGuestComponent } from './home-guest.component';
+import { Router } from '@angular/router';
+import { ROOT_PATHS } from '~core/constants/paths.constants';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +20,8 @@ export class HomeComponent {
   private readonly analyticsService = inject(AnalyticsService);
   private readonly authenticationService = inject(AuthenticationService);
   private readonly userService = inject(UserService);
+  private readonly router = inject(Router);
+  
   readonly activeUsersResource = this.analyticsService.getRealtimeUsersResource();
   readonly isLoggedIn = this.authenticationService.authState().isLoggedIn;
   readonly translations = translations;
@@ -43,5 +47,12 @@ export class HomeComponent {
         },
       });
     }
+  }
+
+  logout() {
+    this.authenticationService.logOut();
+    void this.router.navigate([ROOT_PATHS.home]).then(() => {
+      window.location.reload();
+    });
   }
 }

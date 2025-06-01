@@ -25,7 +25,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem 1rem;
+  padding: 0;
 
   .ai-greeting {
     margin-bottom: 2rem;
@@ -48,7 +48,59 @@
     flex-direction: column;
     gap: 1rem;
     width: 100%;
-    max-width: 400px; // Fixed order: width before max-width
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .action-card {
+    display: flex;
+    align-items: center;
+    background: #dedede;
+    border-radius: 16px;
+    padding: 1.25rem 1rem;
+    gap: 1rem;
+    box-shadow: none;
+    margin-bottom: 0;
+  }
+
+  .action-card__icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #c6c6c6;
+    flex-shrink: 0;
+    margin-right: 1rem;
+  }
+
+  .action-card__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .action-card__title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #111;
+    margin-bottom: 0.15rem;
+    text-align: left;
+  }
+
+  .action-card__subtitle {
+    font-size: 0.97rem;
+    color: #757575;
+    font-weight: 400;
+    text-align: left;
+  }
+
+  .action-card__arrow {
+    font-size: 1.5rem;
+    color: #111;
+    margin-left: 1rem;
+    font-weight: bold;
+    align-self: flex-start;
   }
 
   .button {
@@ -380,5 +432,45 @@
     min-width: 0;
     padding: 0.75rem 0.25rem;
     font-size: 0.95rem;
+  }
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+  margin: 1rem auto 2rem;
+}
+
+.auth-button {
+  flex: 1;
+  width: 50%;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  text-align: center;
+  
+  &--login {
+    background-color: transparent;
+    border: 2px solid #007bff;
+    color: #007bff;
+    
+    &:hover {
+      background-color: rgba(0, 123, 255, 0.1);
+    }
+  }
+  
+  &--signup {
+    background-color: #007bff;
+    color: white;
+    
+    &:hover {
+      background-color: #0056b3;
+    }
   }
 }

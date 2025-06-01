@@ -18,6 +18,7 @@ import type { User } from '~features/authentication/types/user.type';
 import { clearCache } from '~core/interceptors/caching.interceptor';
 import { getEndpoints } from '~core/constants/endpoints.constants';
 import type { RegisterFormValue } from '~features/authentication/pages/register/register-form.types';
+import { ApiResponse } from '~core/types/api-response.types';
 
 export const ACCESS_TOKEN_KEY = 'access-token';
 export const REFRESH_TOKEN_KEY = 'refresh-token';
@@ -46,15 +47,18 @@ export class AuthenticationService {
     })
   });
 
-  register(registerRequest: RegisterFormValue): Observable<RegisterResponseData> {
+  register(registerRequest: RegisterFormValue): Observable<ApiResponse<RegisterResponseData>> {
     return this.httpClient
-      .post<RegisterResponse>(
+      .post<ApiResponse<RegisterResponseData>>(
         this.endpoints.auth.v1.authentication,
         {
           email: registerRequest.email.toLowerCase(),
           password: registerRequest.password,
-          name: registerRequest.name,
+          firstName: registerRequest.firstName,
+          lastName: registerRequest.lastName,
           terms: registerRequest.terms,
+          phone: registerRequest.phone,
+          phoneCountryCode: registerRequest.countryCode,
         },
         {
           headers: {
@@ -63,25 +67,26 @@ export class AuthenticationService {
         },
       )
       .pipe(
-        map((response: RegisterResponse) => {
-          const { data } = response;
-          this.saveTokens(data);
-          return data;
+        map((response: ApiResponse<RegisterResponseData>  ) => {
+          const { data, message, success } = response;
+          // this.saveTokens(data);
+          return response;
         }),
       );
   }
 
-  logIn(loginRequest: LoginRequest): Observable<User> {
+  logIn(loginRequest: LoginRequest): Observable<LoginResponse> {
     return this.httpClient
       .post<LoginResponse>(this.endpoints.auth.v1.login, {
-        email: loginRequest.email.toLowerCase(),
+        username: loginRequest.username,
         password: loginRequest.password,
       })
       .pipe(
         map((response: LoginResponse) => {
-          const { data } = response;
-          this.saveTokens(data);
-          return data.user;
+          if (response.success) {
+            this.saveTokens(response.data);
+          }
+          return response;
         }),
       );
   }

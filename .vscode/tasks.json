@@ -1,0 +1,55 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "npm: start",
+      "type": "shell",
+      "command": "npm run start",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [
+        "$tsc",
+        "$tslint5"
+      ]
+    },
+    {
+      "label": "npm: build",
+      "type": "shell",
+      "command": "npm run build",
+      "group": "build",
+      "problemMatcher": [
+        "$tsc",
+        "$tslint5"
+      ]
+    },
+    {
+      "label": "npm: test",
+      "type": "shell",
+      "command": "npm run test",
+      "group": "test",
+      "problemMatcher": [
+        "$tsc",
+        "$tslint5",
+        "$karma"
+      ]
+    },
+    {
+      "label": "npm: e2e",
+      "type": "shell",
+      "command": "npm run e2e",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "npm: lint",
+      "type": "shell",
+      "command": "npm run lint",
+      "group": "test",
+      "problemMatcher": [
+        "$tslint5"
+      ]
+    }
+  ]
+} 

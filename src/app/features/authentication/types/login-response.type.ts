@@ -1,5 +1,6 @@
 import type { User } from '~features/authentication/types/user.type';
 import type { ApiResponse } from '~core/types/api-response.types';
+import { JwtToken } from './jwt-token.type';
 
 export type LoginResponseData = {
   accessToken: string;
@@ -7,4 +8,4 @@ export type LoginResponseData = {
   user: User;
 };
 
-export type LoginResponse = ApiResponse<LoginResponseData>;
+export type LoginResponse = ApiResponse<JwtToken>;

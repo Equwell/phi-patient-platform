@@ -2,7 +2,7 @@
   <div class="login-page__top-section">
     <div class="login-page__logo-wrapper">
       <div class="login-page__illustration" aria-hidden="true">
-        <svg width="320" height="224" viewBox="0 0 400 280" fill="none" xmlns="http://www.w3.org/2000/svg" class="login-page__atom-svg">
+        <svg width="100%" height="auto" viewBox="0 0 400 280" fill="none" xmlns="http://www.w3.org/2000/svg" class="login-page__atom-svg">
           <g transform="translate(40,0)">
             <path opacity="0.8" d="M212 213.5C27.4994 388.5 53.3914 -46.9966 64.0511 6.84312C111.665 247.33 133.371 2.36259 187.664 59.9187C241.958 117.475 326.91 306.575 187.115 247.33C47.3189 188.085 321.229 38.6843 241.5 31.5003C161.77 24.3162 -42.5935 104.486 11.7552 138.282C55.2342 165.32 187.664 213.5 231.841 125" stroke="#989696" stroke-width="4"/>
           </g>
@@ -21,34 +21,32 @@
       <h2 class="login-page__form-title" i18n>Login</h2>
       <p class="login-page__form-subtitle" i18n>Please Login to Online Consultant</p>
       <div class="form-control__container">
+        <label for="login-username" class="login-label">Username*</label>
         <sl-input
+          id="login-username"
           class="input--primary"
-          placeholder="Placeholder"
-          label="Email*"
-          size="medium"
-          i18n-label
-          i18n-placeholder
+          placeholder="Username"
+          i18n-placeholder="@@username-placeholder"
           appSlInputIconFocus
-          appLowercase
           appTrim
           required
           ngDefaultControl
-          [attr.help-text]="formState().isSubmitted && formControls.email.invalid ? translations.emailHelpText : ''"
-          [formControl]="formControls.email"
+        
+          [formControl]="formControls.username"
         >
-          <sl-icon name="envelope" slot="prefix" />
+          <sl-icon name="person" slot="prefix" />
         </sl-input>
       </div>
       <div class="form-control__container">
+        <label for="login-password" class="login-label">Password*</label>
         <sl-input
+          id="login-password"
           type="password"
           class="input--primary"
           placeholder="Password"
-          label="Password*"
-          size="medium"
-          i18n-label
-          i18n-placeholder
           password-toggle
+          i18n-label="@@password-label"
+          i18n-placeholder="@@password-placeholder"
           appSlInputIconFocus
           required
           ngDefaultControl
@@ -59,7 +57,7 @@
         </sl-input>
       </div>
       <div class="login-page__actions-row">
-        <sl-checkbox class="login-page__remember-me" i18n>Remember Me</sl-checkbox>
+        <!-- <sl-checkbox class="login-page__remember-me" i18n>Remember Me</sl-checkbox> -->
         <a class="login-page__forgot-password" href="#" i18n>Forgot Password?</a>
       </div>
       <sl-button

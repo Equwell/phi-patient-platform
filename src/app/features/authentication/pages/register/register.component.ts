@@ -19,29 +19,39 @@ import { LowercaseDirective } from '~core/directives/lowercase.directive';
 import { TrimDirective } from '~core/directives/trim.directive';
 import { AlertService } from '~core/services/ui/alert.service';
 import { AuthenticationService } from '../../services/authentication.service';
+import { CommonModule } from '@angular/common';
 import type {
   RegisterFormGroup,
   RegisterFormState,
   RegisterFormValue,
 } from './register-form.types';
 import { translations } from '../../../../../locale/translations';
+import { phoneValidator } from '~core/validators/phone.validator';
+import type { RegisterResponseData } from '../../types/register-response.type';
 
 import '@shoelace-style/shoelace/dist/components/button/button.js';
 import '@shoelace-style/shoelace/dist/components/input/input.js';
 import '@shoelace-style/shoelace/dist/components/icon/icon.js';
 import '@shoelace-style/shoelace/dist/components/checkbox/checkbox.js';
+import '@shoelace-style/shoelace/dist/components/select/select.js';
+
+interface ApiResponse<T> {
+  success: boolean;
+  message: string;
+  data: T;
+}
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
   imports: [
     RouterModule,
     ReactiveFormsModule,
-    // NgOptimizedImage,
+    CommonModule,
     SlInputIconFocusDirective,
-    // AppSlCheckboxControlDirective,
     LowercaseDirective,
     TrimDirective,
   ],
@@ -56,15 +66,6 @@ export class RegisterComponent implements OnInit {
 
   readonly translations = translations;
   readonly authUrls = AUTH_URLS;
-  readonly registerForm = this.createRegisterForm();
-  readonly formControls = {
-    name: this.registerForm.get('name') as FormControl<string>,
-    email: this.registerForm.get('email') as FormControl<string>,
-    password: this.registerForm.get('password') as FormControl<string>,
-    confirmPassword: this.registerForm.get('confirmPassword') as FormControl<string>,
-    terms: this.registerForm.get('terms') as FormControl<boolean | null>,
-    phone: this.registerForm.get('phone') as FormControl<string>,
-  };
   readonly formState = signal<RegisterFormState>({
     isLoading: false,
     isSubmitted: false,
@@ -72,12 +73,31 @@ export class RegisterComponent implements OnInit {
     passwordsMatch: false,
   });
 
+  private readonly _registerForm = this.createRegisterForm();
+  readonly registerForm = this._registerForm;
+  readonly formControls = {
+    firstName: this._registerForm.get('firstName') as FormControl<string>,
+    lastName: this._registerForm.get('lastName') as FormControl<string>,
+    email: this._registerForm.get('email') as FormControl<string>,
+    password: this._registerForm.get('password') as FormControl<string>,
+    confirmPassword: this._registerForm.get('confirmPassword') as FormControl<string>,
+    terms: this._registerForm.get('terms') as FormControl<boolean | null>,
+    phone: this._registerForm.get('phone') as FormControl<string>,
+    countryCode: this._registerForm.get('countryCode') as FormControl<string>,
+  };
 
   ngOnInit() {
     merge(this.formControls.password.valueChanges, this.formControls.confirmPassword.valueChanges)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
         this.checkPasswords();
+      });
+
+    // Revalidate phone number when country code changes
+    this.formControls.countryCode.valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.formControls.phone.updateValueAndValidity();
       });
   }
 
@@ -97,19 +117,31 @@ export class RegisterComponent implements OnInit {
       } as RegisterFormValue)
       .pipe(
         takeUntilDestroyed(this.destroyRef),
-        catchError(() => {
-          this.handleRegistrationError();
+        catchError((error) => {
+          this.handleRegistrationError(error);
           return EMPTY;
         }),
       )
-      .subscribe(() => {
-        this.handleRegistrationSuccess();
+      .subscribe((response) => {
+        this.handleRegistrationSuccess(response);
       });
   }
 
   private createRegisterForm(): RegisterFormGroup {
-    return this.formBuilder.group({
-      name: new FormControl<string>('', {
+    const countryCodeControl = new FormControl<string>('+972', {
+      validators: [
+        Validators.required,
+        Validators.pattern(/^\+\d{1,4}$/),
+      ],
+      nonNullable: true,
+    });
+
+    const form = this.formBuilder.group({
+      firstName: new FormControl<string>('', {
+        validators: [Validators.required, Validators.minLength(2)],
+        nonNullable: true,
+      }),
+      lastName: new FormControl<string>('', {
         validators: [Validators.required, Validators.minLength(2)],
         nonNullable: true,
       }),
@@ -130,10 +162,33 @@ export class RegisterComponent implements OnInit {
       terms: new FormControl<boolean | null>(null, {
         validators: [Validators.requiredTrue],
       }),
+      countryCode: countryCodeControl,
       phone: new FormControl<string>('', {
-        validators: [Validators.required, Validators.pattern(/^\+?\d{10,15}$/u)],
+        validators: [
+          Validators.required,
+          Validators.pattern(/^\d+$/),
+          phoneValidator(() => countryCodeControl.value),
+        ],
         nonNullable: true,
       }),
+    });
+
+    // Uncomment the following line to populate the form with mock data
+    this.populateFormWithMockData(form);
+
+    return form;
+  }
+
+  private populateFormWithMockData(form: RegisterFormGroup): void {
+    form.patchValue({
+      firstName: 'John',
+      lastName: 'Doe',
+      email: 'A3a@gmail.com',
+      password: 'A3a@gmail.com',
+      confirmPassword: 'A3a@gmail.com',
+      terms: true,
+      countryCode: '+972',
+      phone: '501234567' 
     });
   }
 
@@ -149,8 +204,18 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  private handleRegistrationSuccess() {
+  private handleRegistrationSuccess(response: ApiResponse<RegisterResponseData>) {
+    if (!response.success) {
+      if (response.message) {
+        this.alertService.createErrorAlert(response.message);
+      }
+      this.updateFormState({ isLoading: false });
+      return;
+    }
+
     this.updateFormState({ isRegistrationCompleted: true });
+    this.alertService.createSuccessAlert(response.message || 'Registration successful!');
+    
     const ANIMATION_END_TIME = 2300;
     setTimeout(() => {
       const LAST_POKEMON_ID = 1025;
@@ -164,8 +229,9 @@ export class RegisterComponent implements OnInit {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  private handleRegistrationError(): void {
-    this.alertService.createErrorAlert(translations.genericErrorAlert);
+  private handleRegistrationError(error: any): void {
+    const errorMessage = error?.message || translations.genericErrorAlert;
+    this.alertService.createErrorAlert(errorMessage);
     this.updateFormState({ isLoading: false });
   }
 
